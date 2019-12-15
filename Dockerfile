@@ -3,7 +3,7 @@ FROM ubuntu:rolling as artifact
 RUN apt update && \
     apt install -y unzip curl
 
-ARG VERSION="latest"
+ARG VERSION="1.8.0.24"
 ARG ARCHIVE_FILENAME="bedrock-server-"
 ARG ARCHIVE_EXTENSION=".zip"
 ARG BASE_URL="https://minecraft.azureedge.net/bin-linux/"
