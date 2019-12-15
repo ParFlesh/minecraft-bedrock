@@ -92,10 +92,17 @@ do
 	then
 	  if [ ! -d "${DATA_DIR}/${f}" ]
 	  then
-		  cp -a ${SERVER_DIR}/default/${f} ${DATA_DIR}/${f}
+	    mkdir -p ${DATA_DIR}/${f}
 		fi
 	  ln -s ${DATA_DIR}/${f} ${SERVER_DIR}/${f}
 	fi
+	for d in $(ls ${SERVER_DIR}/default/${f})
+	do
+	  if [ ! -d ${DATA_DIR}/${f}/${d} ]
+	  then
+	    ln -s ${SERVER_DIR}/default/${f}/${d} ${DATA_DIR}/${f}/${d}
+	  fi
+	done
 done
 
 exec "$@"
