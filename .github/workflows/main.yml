@@ -21,7 +21,7 @@ jobs:
           else
             echo "::set-output name=docker_push::false"
           fi
-          if [[ "${GITHUB_REF}"" =~ ^refs\/pull\/.*$ ]]
+          if [ ${{github.event}} == "pull_request" ]
           then
             BRANCH=${GITHUB_REF#refs/pull/}
             BRANCH=${BRANCH%/merge}
