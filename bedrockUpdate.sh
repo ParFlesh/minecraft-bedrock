@@ -6,7 +6,7 @@ BRANCH=$(git branch -a | grep "${VERSION}")
 if [ $? -ne 0 ]
 then
 	echo ${VERSION}
-	git checkout master;git checkout -b $VERSION > /dev/null 2>&1
+	git checkout master > /dev/null 2>&1;git checkout -b $VERSION > /dev/null 2>&1
 
 	sed -i "s#VERSION=\"latest\"#VERSION=\"${VERSION}\"#" Dockerfile > /dev/null 2>&1
 
