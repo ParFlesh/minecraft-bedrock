@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Check for updated version
 on:
   schedule:
     - cron: "*/10 * * * *"
