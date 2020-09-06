@@ -12,7 +12,9 @@ jobs:
       - name: Update
         id: update
         run: |
-          echo "::set-output name=version::$(./bedrockUpdate.sh)"
+          VERSION=$(./bedrockUpdate.sh)
+          echo ${VERSION}
+          echo "::set-output name=version::${VERSION}"
       - name: Push changes
         uses: ad-m/github-push-action@master
         if: ${{ steps.update.outputs.version }} != ""
