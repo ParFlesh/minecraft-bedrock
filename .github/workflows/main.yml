@@ -21,7 +21,14 @@ jobs:
           else
             echo "::set-output name=docker_push::false"
           fi
-          echo "::set-output name=tag::${GITHUB_REF#refs/heads/}"
+          if [[ "${GITHUB_REF}"" =~ ^refs\/pull\/.*$ ]]
+          then
+            BRANCH=${GITHUB_REF#refs/pull/}
+            BRANCH=${BRANCH%/merge}
+            echo "::set-output name=tag::${BRANCH}"
+          else
+            echo "::set-output name=tag::${GITHUB_REF#refs/heads/}"
+          fi
       - name: Build
         uses: docker/build-push-action@v1
         with:
