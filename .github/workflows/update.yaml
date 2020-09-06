@@ -20,7 +20,7 @@ jobs:
           echo "::set-output name=version::${VERSION}"
       - name: Push changes
         uses: ad-m/github-push-action@master
-        if: "${{ steps.update.outputs.version }}" != ""
+        if: steps.update.outputs.version != ""
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: "${{ steps.update.ouptuts.version }}"
