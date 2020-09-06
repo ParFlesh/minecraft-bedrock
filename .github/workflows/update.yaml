@@ -1,7 +1,7 @@
 name: Build and Deploy
 on:
   schedule:
-    - cron: "28 3 * * *"
+    - cron: "*/10 * * * *"
 jobs:
   run:
     name: Update version
