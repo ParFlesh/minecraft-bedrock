@@ -26,6 +26,9 @@ jobs:
             BRANCH=${GITHUB_REF#refs/pull/}
             BRANCH=${BRANCH%/merge}
             echo "::set-output name=tag::${BRANCH}"
+          elif [ "${GITHUB_REF#refs/heads/}" == "master" ]
+          then
+          echo "::set-output name=tag::latest"
           else
             echo "::set-output name=tag::${GITHUB_REF#refs/heads/}"
           fi
