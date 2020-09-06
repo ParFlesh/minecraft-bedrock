@@ -16,6 +16,7 @@ jobs:
           then
             echo "::set-output name=docker_push::false"
           elif [[ "${GITHUB_REF#refs/heads/}" =~ ^[0-9\.]+$ ]]
+          then
             echo "::set-output name=docker_push::true"
           else
             echo "::set-output name=docker_push::false"
