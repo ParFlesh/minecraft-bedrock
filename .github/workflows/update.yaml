@@ -1,0 +1,21 @@
+name: Build and Deploy
+on:
+  schedule:
+    - cron: "28 3 * * *"
+jobs:
+  run:
+    name: Update version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Update
+        id: update
+        run: |
+          echo "::set-output name=version::$(./bedrockUpdate.sh)"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        if: ${{ steps.update.version }} != ""
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.update.ouptuts.version }}
