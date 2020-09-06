@@ -21,6 +21,7 @@ jobs:
           else
             echo "::set-output name=docker_push::false"
           fi
+          echo "::set-output name=tag::${GITHUB_REF#refs/heads/}"
       - name: Build
         uses: docker/build-push-action@v1
         with:
@@ -28,5 +29,5 @@ jobs:
           password: ${{ secrets.QUAY_PASSWORD }}
           registry: quay.io
           repository: parflesh/minecraft-bedrock
-          tags: ${GITHUB_REF#refs/heads/}
+          tags: ${{ steps.build-variables.outputs.tag }}
           push: ${{ steps.build-variables.outputs.docker_push }}
