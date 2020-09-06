@@ -1,0 +1,31 @@
+name: Build and Deploy
+on:
+  push: {}
+  pull_request: {}
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build variables
+        id: build-variables
+        run: |
+          if [ ${{github.event}} == "pull_request" ]
+          then
+            echo "::set-output name=docker_push::false"
+          elif [[ "${GITHUB_REF#refs/heads/}" =~ ^[0-9\.]+$ ]]
+            echo "::set-output name=docker_push::true"
+          else
+            echo "::set-output name=docker_push::false"
+          fi
+      - name: Build
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+          registry: quay.io
+          repository: parflesh/minecraft-bedrock
+          tags: ${GITHUB_REF#refs/heads/}
+          push: ${{ steps.build-variables.outputs.docker_push }}
