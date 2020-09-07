@@ -5,11 +5,14 @@ VERSION=$(curl -v -L --silent  https://www.minecraft.net/en-us/download/server/b
 BRANCH=$(git branch -a | grep "${VERSION}")
 if [ $? -ne 0 ]
 then
-	echo ${VERSION}
+	echo Version=${VERSION}
+	git checkout -b $VERSION
 	git config --local user.email "action@github.com"
 	git config --local user.name "GitHub Action"
 
-	sed -i "s#VERSION=\"latest\"#VERSION=\"${VERSION}\"#" Dockerfile > /dev/null 2>&1
+	sed -i "s#VERSION=\"latest\"#VERSION=\"${VERSION}\"#" Dockerfile
 
-	git commit -a -m "$VERSION" > /dev/null 2>&1
+	git commit -a -m "$VERSION"
+
+	git push --set-upstream origin $VERSION
 fi
