@@ -9,12 +9,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
-          fetch-depth: 0
       - name: Update
         id: update
         run: |
           ./bedrockUpdate.sh
         env:
-          GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
