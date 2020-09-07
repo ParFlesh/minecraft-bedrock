@@ -16,3 +16,5 @@ jobs:
         id: update
         run: |
           ./bedrockUpdate.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
