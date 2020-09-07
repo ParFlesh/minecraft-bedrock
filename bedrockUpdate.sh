@@ -14,5 +14,5 @@ then
 
 	git commit -a -m "$VERSION"
 
-	git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$INPUT_REPO.git" --set-upstream origin $VERSION
+	git push --set-upstream origin "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$INPUT_REPO.git" $VERSION
 fi
