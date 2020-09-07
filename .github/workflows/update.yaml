@@ -18,9 +18,15 @@ jobs:
           VERSION=$(./bedrockUpdate.sh)
           echo ${VERSION}
           echo "::set-output name=version::${VERSION}"
+          if [ "${VERSION}" != "" ]
+          then
+            echo "::set-output name=push::true"
+          else
+            echo "::set-output name=push::false"
+          fi
       - name: Push changes
         uses: ad-m/github-push-action@master
-        if: ${{ steps.update.outputs.version != "" }}
+        if: steps.update.outputs.push
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: "${{ steps.update.ouptuts.version }}"
