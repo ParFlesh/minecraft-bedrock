@@ -7,10 +7,12 @@ if [ $? -ne 0 ]
 then
 	echo Version=${VERSION}
 	git checkout -b $VERSION
+	git config user.email "action@github.com"
+	git config user.name "GitHub Action"
 
 	sed -i "s#VERSION=\"latest\"#VERSION=\"${VERSION}\"#" Dockerfile
 
 	git commit -a -m "$VERSION"
 
-	git push --set-upstream origin $VERSION
+	git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$INPUT_REPO.git" --set-upstream origin $VERSION
 fi
