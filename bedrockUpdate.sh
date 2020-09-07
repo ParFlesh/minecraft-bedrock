@@ -14,5 +14,5 @@ then
 
 	git commit -a -m "$VERSION"
 
-	git push --set-upstream origin "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/parflesh/minecraft-bedrock.git" $VERSION
+	git push --set-upstream origin "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/${GITHUB_REPOSITORY}.git" $VERSION
 fi
