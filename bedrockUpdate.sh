@@ -7,8 +7,6 @@ if [ $? -ne 0 ]
 then
 	echo Version=${VERSION}
 	git checkout -b $VERSION
-	git config --local user.email "action@github.com"
-	git config --local user.name "GitHub Action"
 
 	sed -i "s#VERSION=\"latest\"#VERSION=\"${VERSION}\"#" Dockerfile
 
