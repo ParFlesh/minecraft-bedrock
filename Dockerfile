@@ -11,7 +11,7 @@ ARG BASE_URL="https://minecraft.azureedge.net/bin-linux/"
 WORKDIR "/tmp"
 
 ENV ARCHIVE_DIR="/tmp/bedrock_server"
-RUN if [ "$VERSION" = "latest" ];then VERSION=`curl -L -v --silent  https://www.minecraft.net/en-us/download/server/bedrock/ 2>&1 | grep 'https://minecraft.azureedge.net/bin-linux/bedrock-server-.*\.zip' | awk -F'bedrock-server-' '{print $2}' | awk -F'.zip' '{print $1}'`;fi && \
+RUN if [ "$VERSION" = "latest" ];then VERSION=`curl -L -v --silent -A 'Version/7.68.0' https://www.minecraft.net/en-us/download/server/bedrock/ 2>&1 | grep 'https://minecraft.azureedge.net/bin-linux/bedrock-server-.*\.zip' | awk -F'bedrock-server-' '{print $2}' | awk -F'.zip' '{print $1}'`;fi && \
     curl -O ${BASE_URL}${ARCHIVE_FILENAME}${VERSION}${ARCHIVE_EXTENSION} && \
     unzip ${ARCHIVE_FILENAME}${VERSION}${ARCHIVE_EXTENSION} -d ${ARCHIVE_DIR} && \
     mkdir ${ARCHIVE_DIR}/default && \
